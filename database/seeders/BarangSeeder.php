@@ -29,9 +29,24 @@ class BarangSeeder extends Seeder
         'stok'=>80
         ]);
        Barang::create([
-        'namaBarang'=> 'pop mie',
-        'harga'=>11000,
-        'stok'=>90
+        'namaBarang'=> 'sosis',
+        'harga'=>3000,
+        'stok'=>100
+        ]);
+       Barang::create([
+        'namaBarang'=> 'milo',
+        'harga'=>15000,
+        'stok'=>50
+        ]);
+       Barang::create([
+        'namaBarang'=> 'coki - coki',
+        'harga'=>1500,
+        'stok'=>150
+        ]);
+       Barang::create([
+        'namaBarang'=> 'cokolatos',
+        'harga'=>2000,
+        'stok'=>120
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Penjualan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class PenjualanSeeder extends Seeder
 {
@@ -13,29 +14,26 @@ class PenjualanSeeder extends Seeder
      */
     public function run(): void
     {
-        Penjualan::create([
-            'barang_id' => 1,
-            'jumlahBarang' => 20,
-            'totalHarga' => 100000,
-
-        ]);
-        Penjualan::create([
-            'barang_id' => 2,
-            'jumlahBarang' => 20,
-            'totalHarga' => 170000,
-
-        ]);
-        Penjualan::create([
-            'barang_id' => 3,
-            'jumlahBarang' => 5,
-            'totalHarga' => 74000,
-
-        ]);
-        Penjualan::create([
-            'barang_id' => 4,
-            'jumlahBarang' => 12,
-            'totalHarga' => 87000,
-
-        ]);
+        $hargaBarang = [
+            1 => 7000,
+            2 => 7000,
+            3 => 7000,
+            4 => 3000,
+            5 => 15000,
+            6 => 1500,
+            7 => 2000,
+        ];
+        for ($bulan = 1; $bulan <= 7; $bulan++) {
+            foreach (range(1, 7) as $barangId) {
+                $jumlah = rand(5, 50);
+                Penjualan::create([
+                    'barang_id'    => $barangId,
+                    'jumlahBarang' => $jumlah,
+                    'totalHarga'   => $jumlah * $hargaBarang[$barangId],
+                    'created_at'   => Carbon::create(2024, $bulan, rand(1, 28)),
+                    'updated_at'   => Carbon::now(),
+                ]);
+            }
+        }
     }
 }
