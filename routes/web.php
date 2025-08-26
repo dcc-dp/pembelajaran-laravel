@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CloudinaryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProfileController;
@@ -8,6 +10,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/check-cloud', function () {
+    return config('services.cloudinary.url');
+});
+
+// routes/web.php
+Route::get('/upload', [CloudinaryController::class, 'index'])->name('upload.form');
+Route::post('/upload', [CloudinaryController::class, 'store'])->name('upload.image');
+Route::delete('/image/{image}', [CloudinaryController::class, 'destroy'])->name('image.delete');
+
+// routes/web.php
+Route::get('/users', [CertificateController::class, 'index'])->name('certificate.index');
+Route::post('/users', [CertificateController::class, 'store'])->name('user.store');
+Route::get('/user/{person}/edit', [CertificateController::class, 'edit'])->name('user.edit');
+Route::put('/user/{person}', [CertificateController::class, 'update'])->name('user.update');
+Route::delete('/certificate/{certificate}', [CertificateController::class, 'destroy'])->name('certificate.destroy');
+Route::get('/certificate/{public_id}/view', [CertificateController::class, 'viewCertificate'])->name('certificate.view');
 
 Route::get('cek-ongkir', [OngkirController::class, 'index']);
 Route::get('get-kota/{id}', [OngkirController::class, 'getKota']);
