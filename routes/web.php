@@ -21,10 +21,10 @@ Route::post('/upload', [CloudinaryController::class, 'store'])->name('upload.ima
 Route::delete('/image/{image}', [CloudinaryController::class, 'destroy'])->name('image.delete');
 
 // routes/web.php
-Route::get('/users', [CertificateController::class, 'index'])->name('certificate.index');
-Route::post('/users', [CertificateController::class, 'store'])->name('user.store');
-Route::get('/user/{person}/edit', [CertificateController::class, 'edit'])->name('user.edit');
-Route::put('/user/{person}', [CertificateController::class, 'update'])->name('user.update');
+Route::get('/person', [CertificateController::class, 'index'])->name('certificate.index');
+Route::post('/person', [CertificateController::class, 'store'])->name('person.store');
+Route::get('/person/{person}/edit', [CertificateController::class, 'edit'])->name('person.edit');
+Route::put('/person/{person}', [CertificateController::class, 'update'])->name('person.update');
 Route::delete('/certificate/{certificate}', [CertificateController::class, 'destroy'])->name('certificate.destroy');
 Route::get('/certificate/{public_id}/view', [CertificateController::class, 'viewCertificate'])->name('certificate.view');
 

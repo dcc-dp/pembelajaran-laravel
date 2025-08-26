@@ -403,7 +403,7 @@
                             <p class="text-muted">Tambah user baru dan sertifikat akan dibuat otomatis</p>
                         </div>
                         
-                        <form id="userForm" action="{{ route('user.store') }}" method="POST">
+                        <form id="userForm" action="{{ route('person.store') }}" method="POST">
                             @csrf
                             
                             <!-- User Form Fields -->
@@ -692,8 +692,7 @@
                                     class="form-control form-control-lg"
                                     id="pdfInput" 
                                     name="certificate_file" 
-                                    accept=".pdf"
-                                    required>
+                                    accept=".pdf">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -792,12 +791,12 @@
         
         // Edit User Function
         function editUser(userId) {
-            fetch(`/user/${userId}/edit`)
+            fetch(`/person/${userId}/edit`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('edit_name').value = data.name;
                     document.getElementById('edit_phone').value = data.phone;
-                    document.getElementById('editForm').action = `/user/${userId}`;
+                    document.getElementById('editForm').action = `/person/${userId}`;
                     
                     // Show modal
                     const editModal = new bootstrap.Modal(document.getElementById('editModal'));
