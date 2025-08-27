@@ -357,14 +357,14 @@
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="gallery-item">
                                             <div class="image-wrapper">
-                                                <img src="" 
+                                                <img src="{{$image->url}}" 
                                                      alt="{{ $image->name }}" 
                                                      class="gallery-image"
-                                                     onclick="openImageModal('{{ $image->id }}', '', '{{ $image->name }}', '{{ number_format($image->size / 1024, 2) }}', '{{ $image->created_at->format('d M Y, H:i') }}')">
+                                                     onclick="openImageModal('{{ $image->id }}', '{{$image->url}}', '{{ $image->name }}', '{{ number_format($image->size / 1024, 2) }}', '{{ $image->created_at->format('d M Y, H:i') }}')">
                                                 <div class="image-overlay">
                                                     <div class="overlay-content">
                                                         <button class="btn btn-light btn-sm me-2" 
-                                                                onclick="openImageModal('{{ $image->id }}', '', '{{ $image->name }}', '{{ number_format($image->size / 1024, 2) }}', '{{ $image->created_at->format('d M Y, H:i') }}')">
+                                                                onclick="openImageModal('{{ $image->id }}', '{{$image->url}}', '{{ $image->name }}', '{{ number_format($image->size / 1024, 2) }}', '{{ $image->created_at->format('d M Y, H:i') }}')">
                                                             <i class="fas fa-search-plus"></i>
                                                         </button>
                                                         <form action="{{ route('image.delete', $image->id) }}" 

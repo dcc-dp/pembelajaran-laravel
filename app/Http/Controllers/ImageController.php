@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
@@ -20,21 +21,32 @@ class ImageController extends Controller
         ]);
 
         $image = $request->file('image');
+        $cloudinary = new Cloudinary();
+        $imageUploaded = $cloudinary->uploadApi()->upload($image->getRealPath(), [
+            'folder' => 'images'
+        ]);
+
 
         Image::create([
             'name' => $image->getClientOriginalName(),
-            'public_id' => '',
-            'url' => '',
+            'public_id' => $imageUploaded['public_id'],
+            'url' => $imageUploaded['secure_url'],
             'size' => $image->getSize(),
         ]);
         
+
         return back()->with('success', 'Gambar berhasil diupload!');
     }
     
     public function destroy(Image $image)
     {
-        $image->delete();
+        $cloudinary = new Cloudinary();
         
+        $cloudinary->uploadApi()->destroy($image->public_id, [
+            'resource_type' => 'image'
+        ]);
+        
+        $image->delete();
         return back()->with('success', 'Gambar berhasil dihapus!');
     }
 }
