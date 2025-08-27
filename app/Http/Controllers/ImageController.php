@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
-use Cloudinary\Cloudinary;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
-class CloudinaryController extends Controller
+class ImageController extends Controller
 {
     public function index()
     {
         $images = Image::latest()->paginate(12);
-        return view('image.index', compact('images'));
+        return view('images.index', compact('images'));
     }
     
     public function store(Request $request)
@@ -22,18 +20,11 @@ class CloudinaryController extends Controller
         ]);
 
         $image = $request->file('image');
-        $cloudinary = new Cloudinary();
-
-        $ImageUploaded = $cloudinary->uploadApi()->upload(
-            $image->getRealPath(),
-            [
-                'folder' => 'images',
-            ]
-        );
 
         Image::create([
             'name' => $image->getClientOriginalName(),
-            'public_id' => $ImageUploaded['public_id'],
+            'public_id' => '',
+            'url' => '',
             'size' => $image->getSize(),
         ]);
         
@@ -42,10 +33,6 @@ class CloudinaryController extends Controller
     
     public function destroy(Image $image)
     {
-        // Delete file from storage
-        Storage::disk('public')->delete($image->path);
-        
-        // Delete record from database
         $image->delete();
         
         return back()->with('success', 'Gambar berhasil dihapus!');

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Certificate;
 use App\Models\Person;
-use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class CertificateController extends Controller
 {
@@ -24,15 +21,13 @@ class CertificateController extends Controller
             'phone' => 'required|string|max:20',
         ]);
 
-        // Create user
         $user = Person::create([
             'name' => $request->name,
             'phone' => $request->phone,
         ]);
 
-        // Auto generate certificate
         Certificate::create([
-            'public_id' => uniqid() . '-' . $request->phone,
+            'public_id' => '',
             'person_id' => $user->id,
         ]);
 
@@ -52,31 +47,6 @@ class CertificateController extends Controller
             'phone' => 'required|string|max:20',
         ]);
 
-        if ($request->hasFile('certificate_file')) {
-            $certificate = Certificate::where('person_id', $person->id)->first();
-
-            $cloudinary = new Cloudinary();
-
-            $deletedPublic_id = "certificates/" . $certificate->public_id;
-
-            $cloudinary->uploadApi()->destroy($deletedPublic_id, [
-                'resource_type' => 'image'
-            ]);
-
-            $FileUploaded = $cloudinary->uploadApi()->upload(
-                $request->file('certificate_file')->getRealPath(),
-                [
-                    'folder' => 'certificates',
-                    'public_id' => $certificate->public_id,
-                    'overwrite' => true,
-                    'invalidate' => true,
-                ]
-            );
-
-            $certificate->version = $FileUploaded['version'];
-            $certificate->save();
-        }
-
         $person->update($request->only(['name', 'phone']));
 
         return back()->with('success', 'Data user berhasil diupdate!');
@@ -84,12 +54,6 @@ class CertificateController extends Controller
 
     public function destroy(Certificate $certificate)
     {
-        $cloudinary = new Cloudinary();
-
-        $deletedPublic_id = "certificates/" . $certificate->public_id;
-        $cloudinary->uploadApi()->destroy($deletedPublic_id, [
-            'resource_type' => 'image'
-        ]);
         
         $certificate->delete();
         $certificate->person->delete();
@@ -97,15 +61,11 @@ class CertificateController extends Controller
         return back()->with('success', 'User dan sertifikat berhasil dihapus!');
     }
 
-    public function viewCertificate($public_id)
+    public function viewCertificate()
     {
+        
+        $url = "";
+        return redirect()->away($url);
 
-        $certificate = Certificate::where('public_id', $public_id)->first();
-        if (empty($certificate->version)) {
-            abort(404, 'Sertifikat tidak ditemukan.');
-        } else {
-            $url = "https://res.cloudinary.com/duxhehco6/image/upload/v{$certificate->version}/certificates/{$certificate->public_id}";
-            return redirect()->away($url);
-        }
     }
 }

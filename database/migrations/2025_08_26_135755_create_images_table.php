@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('public_id');
+            $table->string('url');
             $table->integer('size');
             $table->timestamps();
         });

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CertificateController;
-use App\Http\Controllers\CloudinaryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProfileController;
@@ -16,9 +16,9 @@ Route::get('/check-cloud', function () {
 });
 
 // routes/web.php
-Route::get('/upload', [CloudinaryController::class, 'index'])->name('upload.form');
-Route::post('/upload', [CloudinaryController::class, 'store'])->name('upload.image');
-Route::delete('/image/{image}', [CloudinaryController::class, 'destroy'])->name('image.delete');
+Route::get('/upload', [ImageController::class, 'index'])->name('upload.form');
+Route::post('/upload', [ImageController::class, 'store'])->name('upload.image');
+Route::delete('/image/{image}', [ImageController::class, 'destroy'])->name('image.delete');
 
 // routes/web.php
 Route::get('/person', [CertificateController::class, 'index'])->name('certificate.index');
