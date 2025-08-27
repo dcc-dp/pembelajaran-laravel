@@ -594,7 +594,7 @@
                                                     <div class="btn-group" role="group">
                                                         <button type="button" 
                                                                 class="btn btn-view btn-sm me-1" 
-                                                                onclick="viewCertificate('')"
+                                                                onclick="viewCertificate('{{ $certificate->public_id }}')"
                                                                 title="Lihat Sertifikat">
                                                             <i class="fas fa-eye"></i>  
                                                         </button>
