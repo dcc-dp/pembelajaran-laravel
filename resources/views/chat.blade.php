@@ -86,14 +86,13 @@
         <div class="messages" id="messages">
             @foreach ($messages as $message)
                 <div class="message">
-                    <span class="username">{{ $message->username }}:</span>
+                    <span class="username">{{ $message->user->name }}:</span>
                     <span class="text">{{ $message->message }}</span>
                     <div class="time">{{ $message->created_at->format('H:i') }}</div>
                 </div>
             @endforeach
         </div>
         <div class="input-area">
-            <input type="text" id="username" placeholder="Nama Anda" value="{{ 'User' . rand(1000, 9999) }}">
             <textarea id="messageInput" placeholder="Ketik pesan..." rows="1"></textarea>
             <button onclick="sendMessage()">Kirim</button>
         </div>
@@ -149,30 +148,29 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message';
             messageDiv.innerHTML = `
-                <span class="username">${message.username}:</span>
+                <span class="username">${message.user}:</span>
                 <span class="text">${message.message}</span>
                 <div class="time">${new Date(message.created_at).toLocaleTimeString('id-ID')}</div>
             `;
+
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-            console.log('✅ Message added to UI');
         }
 
         function sendMessage() {
-            const username = document.getElementById('username').value;
             const messageInput = document.getElementById('messageInput');
             const message = messageInput.value.trim();
 
-            if (!username || !message) {
-                alert('Harap isi nama dan pesan!');
+            if (!message) {
+                alert('Harap isi pesan!');
                 return;
             }
 
             console.log('📤 Sending message:', {
-                username,
                 message
             });
+            
+            messageInput.value = '';
 
             fetch('/send-message', {
                     method: 'POST',
@@ -182,7 +180,6 @@
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
-                        username: username,
                         message: message
                     })
                 })

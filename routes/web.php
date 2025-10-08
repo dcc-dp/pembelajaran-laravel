@@ -47,11 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/message', [ChatController::class, 'index'])->name('messages');
+    Route::post('/send-message', [ChatController::class, 'sendMessage']);
+    Route::get('/get-messages', [ChatController::class, 'getMessages']);
 });
 
-
-Route::get('/message', [ChatController::class, 'index']);
-Route::post('/send-message', [ChatController::class, 'sendMessage']);
-Route::get('/get-messages', [ChatController::class, 'getMessages']);
 
 require __DIR__.'/auth.php';

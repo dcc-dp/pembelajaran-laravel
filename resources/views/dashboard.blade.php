@@ -87,8 +87,4 @@
         });
     </script>
 
-
-
-
-
 </x-app-layout>

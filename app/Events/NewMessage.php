@@ -18,19 +18,10 @@ class NewMessage implements ShouldBroadcast
     public function __construct(Message $message)
     {
         $this->message = $message;
-        
-        // ✅ DEBUG: Log ketika event dibuat
-        \Log::info('🎯 EVENT CREATED - NewMessage', [
-            'message_id' => $message->id,
-            'username' => $message->username,
-            'content' => $message->message
-        ]);
     }
 
     public function broadcastOn(): array
     {
-        // ✅ DEBUG: Log ketika akan broadcast
-        \Log::info('📡 BROADCASTING - Channel: chat');
         return [
             new Channel('chat'),
         ];
@@ -46,7 +37,7 @@ class NewMessage implements ShouldBroadcast
         return [
             'message' => [
                 'id' => $this->message->id,
-                'username' => $this->message->username,
+                'user' => $this->message->user->name,
                 'message' => $this->message->message,
                 'created_at' => $this->message->created_at->toDateTimeString(),
             ]

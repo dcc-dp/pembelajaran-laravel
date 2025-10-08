@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NewMessage;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
@@ -17,16 +18,14 @@ class ChatController extends Controller
         public function sendMessage(Request $request)
         {
             $request->validate([
-                'username' => 'required|string|max:255',
                 'message' => 'required|string|max:1000',
             ]);
 
             $message = Message::create([
-                'username' => $request->username,
+                'user_id' => Auth::id(),
                 'message' => $request->message,
             ]);
 
-            // Gunakan event() helper untuk memastikan broadcasting
             event(new NewMessage($message));
 
             return response()->json(['status' => 'Message sent!', 'message' => $message]);
