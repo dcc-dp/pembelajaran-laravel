@@ -210,6 +210,7 @@
         if (messagesDiv) {
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
+        
     </script>
 </body>
 
