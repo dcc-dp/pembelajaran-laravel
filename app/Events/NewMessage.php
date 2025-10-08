@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Events;
+
+use App\Models\Message;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+
+class NewMessage implements ShouldBroadcast
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $message;
+
+    public function __construct(Message $message)
+    {
+        $this->message = $message;
+        
+        // ✅ DEBUG: Log ketika event dibuat
+        \Log::info('🎯 EVENT CREATED - NewMessage', [
+            'message_id' => $message->id,
+            'username' => $message->username,
+            'content' => $message->message
+        ]);
+    }
+
+    public function broadcastOn(): array
+    {
+        // ✅ DEBUG: Log ketika akan broadcast
+        \Log::info('📡 BROADCASTING - Channel: chat');
+        return [
+            new Channel('chat'),
+        ];
+    }
+
+    public function broadcastAs(): string
+    {
+        return 'new-message';
+    }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'message' => [
+                'id' => $this->message->id,
+                'username' => $this->message->username,
+                'message' => $this->message->message,
+                'created_at' => $this->message->created_at->toDateTimeString(),
+            ]
+        ];
+    }
+}

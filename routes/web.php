@@ -1,10 +1,13 @@
 <?php
 
+use App\Events\NewMessage;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Message;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -45,5 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::get('/message', [ChatController::class, 'index']);
+Route::post('/send-message', [ChatController::class, 'sendMessage']);
+Route::get('/get-messages', [ChatController::class, 'getMessages']);
 
 require __DIR__.'/auth.php';
