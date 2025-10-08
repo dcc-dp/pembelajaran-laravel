@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewMessage;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,14 +20,7 @@ class ChatController extends Controller
                 'message' => 'required|string|max:1000',
             ]);
 
-            $message = Message::create([
-                'user_id' => Auth::id(),
-                'message' => $request->message,
-            ]);
-
-            event(new NewMessage($message));
-
-            return response()->json(['status' => 'Message sent!', 'message' => $message]);
+            return response()->json(['status' => 'Message sent!', 'message' => '']);
         }
 
     public function getMessages()

@@ -1,13 +1,11 @@
 <?php
 
-use App\Events\NewMessage;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Message;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

@@ -130,7 +130,7 @@
                 });
 
                 // Listen for messages
-                window.Echo.channel('chat')
+                window.Echo.channel('')
                     .listen('.new-message', (e) => {
                         console.log('📨 NEW MESSAGE RECEIVED:', e);
                         addMessageToChat(e.message);
