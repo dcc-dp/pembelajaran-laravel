@@ -109,10 +109,10 @@
 
                 window.Echo = new Echo({
                     broadcaster: 'pusher',
-                    key: '{{ env('REVERB_APP_KEY') }}',
-                    wsHost: '{{ env('REVERB_HOST') }}',
-                    wsPort: {{ env('REVERB_PORT') }},
-                    wssPort: {{ env('REVERB_PORT') }},
+                    key: '{{ env('') }}',
+                    wsHost: '{{ env('') }}',
+                    wsPort: {{ env('') }},
+                    wssPort: {{ env('') }},
                     forceTLS: false,
                     cluster: 'mt1',
                     enabledTransports: ['ws', 'wss'],
@@ -130,7 +130,7 @@
                 });
 
                 // Listen for messages
-                window.Echo.channel('chat')
+                window.Echo.channel('')
                     .listen('.new-message', (e) => {
                         console.log('📨 NEW MESSAGE RECEIVED:', e);
                         addMessageToChat(e.message);
@@ -169,7 +169,7 @@
             console.log('📤 Sending message:', {
                 message
             });
-            
+
             messageInput.value = '';
 
             fetch('/send-message', {
