@@ -109,10 +109,10 @@
 
                 window.Echo = new Echo({
                     broadcaster: 'pusher',
-                    key: '{{ env('') }}',
-                    wsHost: '{{ env('') }}',
-                    wsPort: {{ env('') }},
-                    wssPort: {{ env('') }},
+                    key: '',
+                    wsHost: '',
+                    wsPort: ,
+                    wssPort: ,
                     forceTLS: false,
                     cluster: 'mt1',
                     enabledTransports: ['ws', 'wss'],
@@ -130,7 +130,7 @@
                 });
 
                 // Listen for messages
-                window.Echo.channel('')
+                window.Echo.channel('chat')
                     .listen('.new-message', (e) => {
                         console.log('📨 NEW MESSAGE RECEIVED:', e);
                         addMessageToChat(e.message);
@@ -169,7 +169,7 @@
             console.log('📤 Sending message:', {
                 message
             });
-
+            
             messageInput.value = '';
 
             fetch('/send-message', {
@@ -210,7 +210,6 @@
         if (messagesDiv) {
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
-        
     </script>
 </body>
 
