@@ -9,7 +9,40 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("INI BUATAN JAHRA") }}
+                    @role('admin')
+                        <h1>Halo Admin</h1>
+                    @endrole
+
+                    @role('editor')
+                        <h1>Halo Editor</h1>
+                    @endrole
+                    
+                    @role('user')
+                        <h1>Halo User</h1>
+                    @endrole
+
+                    @permission('create-post')
+                        <button>Tambah</button>
+                    @endpermission
+
+                    <table>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Aksi</th>
+                        </tr>
+                        <tr>
+                            <td>Jahra</td>
+                            <td>
+                                @permission('edit-post')
+                                    <button>Edit</button>
+                                @endpermission
+
+                                @permission('delete-post')
+                                    <button>Hapus</button>
+                                @endpermission
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
