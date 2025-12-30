@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('messages')" :active="request()->routeIs('messages')">
                         {{ __('messages') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('chating')" :active="request()->routeIs('chating')">
+                        {{ __('chating') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -75,6 +78,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('messages')" :active="request()->routeIs('messages')">
                 {{ __('messages') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('chating')" :active="request()->routeIs('chating')">
+                {{ __('chating') }}
             </x-responsive-nav-link>
         </div>
 

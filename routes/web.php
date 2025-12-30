@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ChatingController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OngkirController;
@@ -49,7 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/message', [ChatController::class, 'index'])->name('messages');
     Route::post('/send-message', [ChatController::class, 'sendMessage']);
     Route::get('/get-messages', [ChatController::class, 'getMessages']);
+
+    Route::get('/chating',[ChatingController::class, 'index'])->name('chating');
 });
+
 
 
 require __DIR__.'/auth.php';
