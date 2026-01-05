@@ -135,14 +135,14 @@
 
 
         const firebaseConfig = {
-            apiKey: "apiKey",
-            authDomain: "authDomain",
-            databaseURL: "databaseURL",
-            projectId: "projectId",
-            storageBucket: "storageBucket",
-            messagingSenderId: "messagingSenderId",
-            appId: "appId",
-            measurementId: "measurementId"
+            apiKey: "AIzaSyCOHxrUDnezt5FjbkSSVDvTlVLQW32RT5c",
+            authDomain: "pembelajaran-dcc-f6564.firebaseapp.com",
+            databaseURL: "https://pembelajaran-dcc-f6564-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "pembelajaran-dcc-f6564",
+            storageBucket: "pembelajaran-dcc-f6564.firebasestorage.app",
+            messagingSenderId: "329893273978",
+            appId: "1:329893273978:web:b5dd108d3f5f8a3332b6c3",
+            measurementId: "G-N0HEW03BM4"
         };
 
         const app = initializeApp(firebaseConfig);

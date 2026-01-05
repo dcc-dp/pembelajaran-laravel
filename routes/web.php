@@ -59,3 +59,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::resource('/blogs', App\Http\Controllers\BlogController::class);
+Route::resource('/articles', App\Http\Controllers\ArticleController::class);
