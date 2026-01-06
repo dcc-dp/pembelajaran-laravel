@@ -28,7 +28,6 @@ class ArticleController extends Controller
             'content_images.*'=> 'image|max:2048'
         ]);
 
-
         $article = Article::create($request->only('title', 'content'));
 
         if ($request->hasFile('content_images')) {
