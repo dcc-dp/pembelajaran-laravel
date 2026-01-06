@@ -25,7 +25,7 @@
             {{-- Cover --}}
             <div class="bg-white rounded-xl shadow overflow-hidden mb-6">
                 <img
-                    src=""
+                    src="{{ $article->getFirstMediaUrl('cover') }}"
                     alt="{{ $article->title }}"
                     class="w-full h-80 object-cover"
                 >
@@ -51,17 +51,17 @@
                 </div>
 
                 {{-- Gambar Isi --}}
-                {{-- @if ($article->getMedia('content_images')->count()) --}}
+                @if ($article->getMedia('content_images')->count())
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700 mb-3">
                             Galeri Gambar
                         </h3>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            @foreach ($article as $image)
+                            @foreach ($article->getMedia('content_images') as $image)
                                 <div class="rounded-lg overflow-hidden shadow-sm">
                                     <img
-                                        src=""
+                                        src="{{ $image->getUrl('content') }}"
                                         alt="Gambar Artikel"
                                         class="w-full h-64 object-cover hover:scale-105 transition"
                                     >
@@ -69,7 +69,7 @@
                             @endforeach
                         </div>
                     </div>
-                {{-- @endif --}}
+                @endif
             </div>
         </div>
     </div>

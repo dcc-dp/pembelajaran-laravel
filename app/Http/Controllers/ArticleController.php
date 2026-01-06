@@ -29,9 +29,12 @@ class ArticleController extends Controller
         ]);
 
         $article = Article::create($request->only('title', 'content'));
+        $article->addMedia($request->file('cover'))->toMediaCollection('cover');
 
         if ($request->hasFile('content_images')) {
-            
+            foreach($request->file('content_images') as $image){
+                $article->addMedia($image)->toMediaCollection('content_images');
+            }
         }
 
         return redirect()->route('articles.index')

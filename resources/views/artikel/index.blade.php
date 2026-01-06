@@ -36,7 +36,7 @@
 
                         {{-- Cover --}}
                         <img
-                            src=""
+                            src="{{$article->getFirstMediaUrl('cover', 'thumb') }}"
                             alt="{{ $article->title }}"
                             class="w-full h-48 object-cover"
                         >
