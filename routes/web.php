@@ -52,6 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-messages', [ChatController::class, 'getMessages']);
 
     Route::get('/chating',[ChatingController::class, 'index'])->name('chating');
+    Route::post('/upload-chat-image', [ChatingController::class, 'store'])->name('chat.upload');
+    Route::delete('/chat/delete-image', [ChatingController::class, 'deleteImage'])->name('chat.deleteImage');
+
 });
 
 

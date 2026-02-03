@@ -23,9 +23,8 @@ class ImageController extends Controller
         $image = $request->file('image');
         $cloudinary = new Cloudinary();
         $imageUploaded = $cloudinary->uploadApi()->upload($image->getRealPath(), [
-            'folder' => 'images'
+            'folder' => 'chating',
         ]);
-
 
         Image::create([
             'name' => $image->getClientOriginalName(),
@@ -33,7 +32,6 @@ class ImageController extends Controller
             'url' => $imageUploaded['secure_url'],
             'size' => $image->getSize(),
         ]);
-        
 
         return back()->with('success', 'Gambar berhasil diupload!');
     }
