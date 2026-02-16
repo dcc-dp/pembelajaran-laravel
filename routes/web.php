@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\UserExport;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatingController;
@@ -63,3 +64,16 @@ require __DIR__.'/auth.php';
 
 Route::resource('/blogs', App\Http\Controllers\BlogController::class);
 Route::resource('/articles', App\Http\Controllers\ArticleController::class);
+
+use Illuminate\Support\Facades\Artisan;
+use Maatwebsite\Excel\Facades\Excel;
+
+Route::get('/artisan/storage-link', function () {
+    abort_unless(app()->environment('local'), 403);
+    Artisan::call('storage:link');
+    return 'Storage link berhasil dibuat';
+});
+
+Route::get('/export/excel', function () {
+     return Excel::store(new UserExport,public_path('jara.xlsx'));
+});

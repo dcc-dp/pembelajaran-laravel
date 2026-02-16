@@ -123,10 +123,10 @@
                         <textarea id="messageInput" placeholder="Ketik pesan..." rows="1"></textarea>
                         <button onclick="sendMessage()">Kirim</button>
                     </div>
-                    {{-- <div class="input-area">
+                    <div class="input-area">
                         <input type="file" id="imageInput" accept="image/*">
                         <button id="sendImageBtn" onclick="sendImage()">Kirim</button>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
