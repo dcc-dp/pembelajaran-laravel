@@ -8,6 +8,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,6 +45,13 @@ Route::middleware(['auth','verified'])->get('/dashboard',[DashboardController::c
     'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/wallet', [TesController::class, 'index'])->name('wallet');
+
+    Route::post('/deposit', [TesController::class, 'tambah'])->name('tambah');
+    Route::post('/withdraw', [TesController::class, 'kurang'])->name('kurang');
+    Route::post('/transfer', [TesController::class, 'transfer'])->name('transfer');
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
