@@ -4,11 +4,13 @@ use App\Exports\UserExport;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatingController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TesController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +20,8 @@ Route::get('/', function () {
 Route::get('/check-cloud', function () {
     return config('services.cloudinary.url');
 });
+
+Route::get('/tambah', [WalletController::class, 'tambah'])->name('tambah');
 
 // routes/web.php
 Route::get('/upload', [ImageController::class, 'index'])->name('upload.form');
@@ -41,8 +45,10 @@ Route::post('cek-rong', [OngkirController::class, 'cekRong']);
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth','verified'])->get('/dashboard',[DashboardController::class,
-    'index'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->get('/dashboard', [
+    DashboardController::class,
+    'index'
+])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/wallet', [TesController::class, 'index'])->name('wallet');
@@ -60,15 +66,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/send-message', [ChatController::class, 'sendMessage']);
     Route::get('/get-messages', [ChatController::class, 'getMessages']);
 
-    Route::get('/chating',[ChatingController::class, 'index'])->name('chating');
+    Route::get('/chating', [ChatingController::class, 'index'])->name('chating');
     Route::post('/upload-chat-image', [ChatingController::class, 'store'])->name('chat.upload');
     Route::delete('/chat/delete-image', [ChatingController::class, 'deleteImage'])->name('chat.deleteImage');
-
 });
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::resource('/blogs', App\Http\Controllers\BlogController::class);
 Route::resource('/articles', App\Http\Controllers\ArticleController::class);
@@ -83,5 +88,24 @@ Route::get('/artisan/storage-link', function () {
 });
 
 Route::get('/export/excel', function () {
-     return Excel::store(new UserExport,public_path('jara.xlsx'));
+    return Excel::store(new UserExport, public_path('jara.xlsx'));
 });
+
+Route::get('/complaints', [ComplaintController::class, 'index']);
+
+Route::get('/marker', function () {
+    return view('map.marker');
+});
+Route::post('/complaints/marker', [ComplaintController::class, 'storeMarker']);
+
+
+Route::get('/polygon', function () {
+    return view('map.polygon');
+});
+Route::post('/complaints/polygon', [ComplaintController::class, 'storePolygon']);
+
+Route::get('/drawing', function () {
+    return view('map.drawing');
+});
+
+Route::post('/complaints/drawing', [ComplaintController::class, 'storeDrawing']);
