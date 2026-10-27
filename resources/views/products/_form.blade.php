@@ -1,4 +1,4 @@
-@if ($errors->any())
+<!-- @if ($errors->any())
     <p class="rounded-md bg-red-50 p-4 text-sm font-medium text-red-800" role="alert">
         Periksa kembali input yang ditandai di bawah.
     </p>
@@ -46,4 +46,4 @@
             <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($product->foto) }}" alt="Foto {{ $product->nama_produk }}" class="h-32 w-32 rounded-md object-cover">
         </div>
     @endif
-</div>
+</div> -->
